@@ -8,5 +8,5 @@ set(CMAKE_C_STANDARD 11)
 include_directories(${PROJECT_SOURCE_DIR}/lib/include)
 link_directories(${PROJECT_SOURCE_DIR}/lib/lib)
 
-add_executable(cgd_lib main.c window.c window.h)
+add_executable(cgd_lib main.c window.c window.h util.h)
 target_link_libraries(cgd_lib SDL2 SDL2main glew32)

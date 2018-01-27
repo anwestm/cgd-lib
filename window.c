@@ -42,10 +42,30 @@ CGD_Window* cgd_create_window(const char* title, const int width, const int heig
     }
 
 	CGD_Window* cgd_window = malloc(sizeof(CGD_Window));
+    cgd_window->sdl_window = sdl_window;
+    cgd_window->gl_context = gl_context;
 
 	return cgd_window;
 }
 
-void cgd_destroy_window(CGD_Window *window) {
+void cgd_destroy_window(CGD_Window *window)
+{
 
+}
+
+void cgd_main_loop(CGD_Window *window, void(*render_func)(float delta))
+{
+    int quit = 0;
+    Uint32 lastTime = SDL_GetTicks();
+    while (!quit)
+    {
+        SDL_Event event;
+        while( SDL_PollEvent(&event) ) {
+            if(event.type == SDL_QUIT) {
+                quit = 1;
+            }
+        }
+        render_func((SDL_GetTicks() - lastTime) / 1000.0f);
+        SDL_GL_SwapWindow(window->sdl_window);
+    }
 }
