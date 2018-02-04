@@ -1,8 +1,8 @@
-#ifndef CGD_LIB_UTIL_H
-#define CGD_LIB_UTIL_H
+//
+// Created by andreas on 2018-01-28.
+//
 
-#include <stdio.h>
-#include <SDL2/SDL.h>
+#include "util.h"
 
 void log_fps() {
     static Uint32 lastTime;
@@ -17,5 +17,3 @@ void log_fps() {
     }
 
 }
-
-#endif //CGD_LIB_UTIL_H

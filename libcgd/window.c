@@ -1,7 +1,7 @@
 ﻿#include "window.h"
 
 
-CGD_Window* cgd_create_window(const char* title, const int width, const int height)
+CGD_Window* cgd_window_create(const char *title, int width, int height)
 {
 
 	if(SDL_Init(SDL_INIT_VIDEO) != 0)
@@ -48,24 +48,20 @@ CGD_Window* cgd_create_window(const char* title, const int width, const int heig
 	return cgd_window;
 }
 
-void cgd_destroy_window(CGD_Window *window)
+void cgd_window_destroy(CGD_Window *window)
 {
 
 }
 
-void cgd_main_loop(CGD_Window *window, void(*render_func)(float delta))
+void cgd_window_update(CGD_Window *window)
 {
-    int quit = 0;
-    Uint32 lastTime = SDL_GetTicks();
-    while (!quit)
-    {
-        SDL_Event event;
-        while( SDL_PollEvent(&event) ) {
-            if(event.type == SDL_QUIT) {
-                quit = 1;
-            }
+    SDL_Event event;
+    while( SDL_PollEvent(&event) ) {
+        if(event.type == SDL_QUIT) {
+            window->quit = 1;
         }
-        render_func((SDL_GetTicks() - lastTime) / 1000.0f);
-        SDL_GL_SwapWindow(window->sdl_window);
     }
+
+    SDL_GL_SwapWindow(window->sdl_window);
+
 }
