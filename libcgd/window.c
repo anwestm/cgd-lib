@@ -41,7 +41,7 @@ CGD_Window* cgd_window_create(const char *title, int width, int height)
         exit(-1);
     }
 
-	CGD_Window* cgd_window = malloc(sizeof(CGD_Window));
+	CGD_Window* cgd_window = calloc(1, sizeof(CGD_Window));
     cgd_window->sdl_window = sdl_window;
     cgd_window->gl_context = gl_context;
 

@@ -11,7 +11,7 @@ typedef struct
     SDL_GLContext* gl_context;
 
     float delta;
-    char quit;
+    short quit;
 } CGD_Window;
 
 CGD_Window* cgd_window_create(const char *title, int width, int height);
