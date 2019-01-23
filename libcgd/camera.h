@@ -7,9 +7,14 @@
 
 #include <cglm/cglm.h>
 
-#define CGD_CAMERA_FOV 67.0f
+#define CGD_CAMERA_FOV 45.0f
 #define CGD_CAMERA_NEAR 0.1f
 #define CGD_CAMERA_FAR 300.0f
+
+#define YAW -90.0
+#define PITCH 0.0
+#define SPEED 2.5
+#define SENSITIVITY 0
 
 typedef struct {
     int width, height;

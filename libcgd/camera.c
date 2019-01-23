@@ -10,10 +10,9 @@ CGD_Camera *cgd_camera_create(vec3 pos, int width, int height)
     camera->width = width;
     camera->height = height;
 
-
-    glm_vec_copy(pos, camera->position);
-    glm_vec_copy((vec3) {0.0f, -90.0f, 0.0f}, camera->rotation);
-    glm_vec_copy((vec3) {0.0f, 0.0f, -1.0f}, camera->_front);
+    glm_vec3_copy(pos, camera->position);
+    glm_vec3_copy((vec3) {0.0f, -90.0f, 0.0f}, camera->rotation);
+    glm_vec3_copy((vec3) {0.0f, 0.0f, -1.0f}, camera->_front);
 
     cgd_camera_update(camera);
 
@@ -29,14 +28,14 @@ void cgd_camera_update(CGD_Camera *camera)
     camera->_front[1] = sinf(glm_rad(camera->rotation[0]));
     camera->_front[2] = sinf(glm_rad(camera->rotation[1])) * cosf(glm_rad(camera->rotation[0]));
 
-    glm_vec_normalize(camera->_front);
+    glm_vec3_normalize(camera->_front);
 
-    glm_vec_cross(camera->_front, GLM_YUP, camera->_right);
-    glm_vec_normalize(camera->_right);
+    glm_vec3_cross(camera->_front, GLM_YUP, camera->_right);
+    glm_vec3_normalize(camera->_right);
 
-    glm_vec_cross(camera->_right, camera->_front, camera->_up);
+    glm_vec3_cross(camera->_right, camera->_front, camera->_up);
 
     vec3 center = {0};
-    glm_vec_add(camera->position, camera->_front, center);
+    glm_vec3_add(camera->position, camera->_front, center);
     glm_lookat(camera->position, center, camera->_up, camera->view);
 }

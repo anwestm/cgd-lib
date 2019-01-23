@@ -5,9 +5,9 @@
 #include "testscene.h"
 #include "libcgd/util.h"
 
-int main(int argc, char* args[])
+int main(int argc, char** args)
 {
-	CGD_Window* window = cgd_window_create("test", 1920, 1080);
+    CGD_Window* window = cgd_window_create("test", 1920, 1080);
 
     Uint64 curr_time = 0;
     Uint64 last_time = 0;
