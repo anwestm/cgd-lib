@@ -56,9 +56,15 @@ void cgd_window_destroy(CGD_Window *window)
 void cgd_window_update(CGD_Window *window)
 {
     SDL_Event event;
-    while( SDL_PollEvent(&event) ) {
-        if(event.type == SDL_QUIT) {
-            window->quit = 1;
+    while( SDL_PollEvent(&event) )
+    {
+        switch (event.type)
+        {
+            case SDL_QUIT:
+                window->quit = 1;
+                break;
+            default:
+                cgd_input_handle_event(event);
         }
     }
 

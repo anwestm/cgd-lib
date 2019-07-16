@@ -19,7 +19,8 @@ void cgd_linklist_push(CGD_LinkedList *list, void *data)
     CGD_LinkNode *node = malloc(sizeof(CGD_LinkNode));
     node->data = data;
     node->next = NULL;
-    list->last->next = node;
+    list->last->next = list->last;
+    list->last = node;
     list->len++;
 }
 

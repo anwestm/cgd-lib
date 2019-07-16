@@ -10,11 +10,13 @@ CGD_Texture *cgd_texture_create(const char *path, CGD_TEXTURE_TYPE type)
     CGD_Texture *texture = malloc(sizeof(CGD_Texture));
     texture->type = type;
 
+    stbi_set_flip_vertically_on_load(GL_TRUE);
     unsigned char *data = stbi_load(path, &texture->width, &texture->height, &texture->channels, 0);
     if (data)
     {
         GLenum format;
-        switch (texture->channels) {
+        switch (texture->channels)
+        {
             case 1:
                 format = GL_RED;
                 break;
@@ -27,6 +29,8 @@ CGD_Texture *cgd_texture_create(const char *path, CGD_TEXTURE_TYPE type)
             default:
                 format = GL_NONE;
         }
+
+        printf("%s, %d\n", path, texture->channels);
 
         glGenTextures(1, &texture->id);
         glBindTexture(GL_TEXTURE_2D, texture->id);
@@ -49,7 +53,8 @@ CGD_Texture *cgd_texture_create(const char *path, CGD_TEXTURE_TYPE type)
     return texture;
 }
 
-void cgd_texture_bind(CGD_Texture *texture)
+void cgd_texture_bind(CGD_Texture *texture, int texture_unit)
 {
+    glActiveTexture(texture_unit);
     glBindTexture(GL_TEXTURE_2D, texture->id);
 }

@@ -2,16 +2,16 @@
 
 #include <stdio.h>
 #include "libcgd/window.h"
-#include "testscene.h"
+#include "libcgd-test/texturetest.h"
 #include "libcgd/util.h"
 
 int main(int argc, char** args)
 {
-    CGD_Window* window = cgd_window_create("test", 1920, 1080);
+    CGD_Window* window = cgd_window_create("test title", 1920, 1080);
 
-    Uint64 curr_time = 0;
-    Uint64 last_time = 0;
-    float delta = 0;
+    int curr_time;
+    int last_time;
+    float delta;
 
     init();
     while(!window->quit)

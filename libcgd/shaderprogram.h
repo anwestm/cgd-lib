@@ -8,7 +8,7 @@ typedef struct {
     unsigned int id;
 } CGD_ShaderProgram;
 
-CGD_ShaderProgram *cgd_shader_create(const char *vertexCode, const char *fragmentCode);
+CGD_ShaderProgram *cgd_shader_create(const char *vertex_code, const char *fragment_code);
 
 void cgd_shader_start(CGD_ShaderProgram* shader);
 void cgd_shader_setint(CGD_ShaderProgram* shader, const char *name, int val);

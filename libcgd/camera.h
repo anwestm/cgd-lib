@@ -11,8 +11,8 @@
 #define CGD_CAMERA_NEAR 0.1f
 #define CGD_CAMERA_FAR 300.0f
 
-#define YAW -90.0
-#define PITCH 0.0
+#define YAW -90.0f
+#define PITCH 0.0f
 #define SPEED 2.5
 #define SENSITIVITY 0
 
@@ -21,12 +21,12 @@ typedef struct {
 
     mat4 view;
     mat4 projection;
-    vec3 position;
-    vec3 rotation;
+    vec3 position; // {x, y, z}
+    vec3 rotation; // {pitch, yaw, roll}
 
-    vec3 _front;
-    vec3 _right;
-    vec3 _up;
+    vec3 m_front;
+    vec3 m_right;
+    vec3 m_up;
 
 
 } CGD_Camera;

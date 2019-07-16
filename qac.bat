@@ -1,0 +1,1 @@
+start /WAIT C:/PROGRA~1/Cppcheck/cppcheck.exe %0 --enable=all --platform=win32A --quiet --output-file=qac/warnings.txt --addon=C:/PROGRA~1/Cppcheck/misra/misra.py %0 --config-excludes-file=qac/excludes.txt

@@ -4,87 +4,35 @@
 
 #include "testscene.h"
 #include "libcgd/camera.h"
-
-vec3 cube_pos[] = {
-        {0.0f,  0.0f,  0.0f},
-        {2.0f,  5.0f,  -15.0f},
-        {-1.5f, -2.2f, -2.5f},
-        {-3.8f, -2.0f, -12.3f},
-        {2.4f,  -0.4f, -3.5f},
-        {-1.7f, 3.0f,  -7.5f},
-        {1.3f,  -2.0f, -2.5f},
-        {1.5f,  2.0f,  -2.5f},
-        {1.5f,  0.2f,  -1.5f},
-        {-1.3f, 1.0f,  -1.5f}
-};
-
-vec3 plight_pos[] = {
-        {0.7f, 0.2f, 2.0f},
-        {2.3f, -3.3f, -4.0f},
-        {-4.0f, 2.0f, -12.0f},
-        {0.0f, 0.0f, -3.0f}
-};
+#include "libcgd/mesh.h"
 
 float vertices[] = {
-        // positions          // normals           // texture coords
-        -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
-        0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 0.0f,
-        0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f,
-        0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f,
-        -0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 1.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
-
-        -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 0.0f,
-        0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 0.0f,
-        0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 1.0f,
-        0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 1.0f,
-        -0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 1.0f,
-        -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 0.0f,
-
-        -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
-        -0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
-        -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
-        -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
-        -0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
-        -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
-
-        0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
-        0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
-        0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
-        0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
-        0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
-        0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
-
-        -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
-        0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 1.0f,
-        0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 0.0f,
-        0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 0.0f,
-        -0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 0.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
-
-        -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f,
-        0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 1.0f,
-        0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
-        0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
-        -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 0.0f,
-        -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f
+        0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // top right
+        0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,   // bottom right
+        -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,   // bottom left
+        -0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f    // top left
+};
+unsigned int indices[] = {  // note that we start from 0!
+        0, 1, 3,   // first triangle
+        1, 2, 3    // second triangle
 };
 
-unsigned int EBO;
-unsigned int VBO;
-unsigned int cube_VAO;
+float texCoords[] = {
+        0.0f, 0.0f,  // lower-left corner
+        1.0f, 0.0f,  // lower-right corner
+        0.5f, 1.0f   // top-center corner
+};
 
-unsigned int light_VAO;
 
 CGD_ShaderProgram* shader;
-CGD_ShaderProgram* lamp_shader;
 CGD_Camera *camera;
+CGD_Texture *wall_diff;
 CGD_Texture *box_diff;
-CGD_Texture *box_spec;
+CGD_Mesh *box_mesh;
 
-CGD_DirectionalLight *dir_light;
-CGD_PointLight *point_lights[4];
-
+unsigned int VBO;
+unsigned int VAO;
+unsigned int EBO;
 
 void init()
 {
@@ -93,158 +41,81 @@ void init()
     char vertBuff[4096];
     char fragBuff[4096];
 
-    cgd_file_to_str("shader/superShader.vs", vertBuff);
-    cgd_file_to_str("shader/superShader.fs", fragBuff);
+    cgd_file_to_str("shader/tex2Shader.vs", vertBuff);
+    cgd_file_to_str("shader/tex2Shader.fs", fragBuff);
     shader = cgd_shader_create(vertBuff, fragBuff);
 
     cgd_shader_start(shader);
-
-    cgd_file_to_str("shader/lampShader.vs", vertBuff);
-    cgd_file_to_str("shader/lampShader.fs", fragBuff);
-    lamp_shader = cgd_shader_create(vertBuff,fragBuff);
-
-    box_diff = cgd_texture_create("res/box.png", DIFFUSE);
-    box_spec = cgd_texture_create("res/box_spec.png", SPECULAR);
-
-    camera = cgd_camera_create((vec3){0.0f, 0.0f, 0.0f}, 1920, 1080);
+    wall_diff = cgd_texture_create("res/wall.jpg", CGD_DIFFUSE);
+    box_diff = cgd_texture_create("res/box.png", CGD_DIFFUSE);
+    camera = cgd_camera_create((vec3){0.0f, 0.0f, 3.0f}, 1920, 1080);
 
 
-    dir_light = malloc(sizeof(CGD_DirectionalLight));
-    glm_vec3_copy((vec3){-0.2f, -1.0f, -0.3f}, dir_light->direction);
-    glm_vec3_copy((vec3){0.05f, 0.05f, 0.05f}, dir_light->ambient);
-    glm_vec3_copy((vec3){0.4f, 0.4f, 0.4f}, dir_light->diffuse);
-    glm_vec3_copy((vec3){0.5f, 0.5f, 0.5f}, dir_light->specular);
-
-    for (int i = 0; i < 4; i++)
-    {
-        point_lights[i] = malloc(sizeof(CGD_PointLight));
-        glm_vec3_copy(plight_pos[i], point_lights[i]->position);
-        glm_vec3_copy((vec3){0.05f, 0.05f, 0.05f}, point_lights[i]->ambient);
-        glm_vec3_copy((vec3){0.8f, 0.8f, 0.8f}, point_lights[i]->diffuse);
-        glm_vec3_copy((vec3){1.0f, 1.0f, 1.0f}, point_lights[i]->specular);
-        point_lights[i]->linear = 0.09f;
-        point_lights[i]->quadratic = 0.032f;
-    }
-
-    glEnable(GL_DEPTH_TEST);
-
-    glViewport(0, 0, 1920, 1090);
-
-    glGenVertexArrays(1, &cube_VAO);
+    glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
+    glGenBuffers(1, &EBO);
+    // bind the Vertex Array Object first, then bind and set vertex buffer(s), and then configure vertex attributes(s).
+    glBindVertexArray(VAO);
 
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-    glBindVertexArray(cube_VAO);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
+    // position attribute
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
+    // color attribute
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
     glEnableVertexAttribArray(1);
+    // texture coord attribute
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
     glEnableVertexAttribArray(2);
 
-    glGenVertexArrays(1, &light_VAO);
-    glBindVertexArray(light_VAO);
+    // note that this is allowed, the call to glVertexAttribPointer registered VBO as the vertex attribute's bound vertex buffer object so afterwards we can safely unbind
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindVertexArray(0);
 
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
+    cgd_shader_start(shader);
+    cgd_shader_setint(shader, "texture_diffuse1", 0);
+    cgd_shader_setint(shader, "texture_diffuse2", 1);
 
+
+    glViewport(0, 0, 1920, 1080);
 }
 
 void render(const float delta)
 {
-    //handle_input(delta);
+    handle_input(delta);
+
     glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     mat4 model_mat;
     glm_mat4_copy((mat4)GLM_MAT4_IDENTITY_INIT, model_mat);
+    glm_rotate(model_mat, glm_rad(-55.0f), (vec3){1.0f, 0.0f, 0.0f});
 
-    cgd_camera_update(camera);
-
+    //cgd_camera_update(camera);
     cgd_shader_start(shader);
-    glm_translate(model_mat, (vec3) {0.0f, 0.0f, 3.0f});
-    //glm_scale(model_mat, (vec3){0.2f, 0.2f, 0.2f});
-
     cgd_shader_setmat4(shader, "model", model_mat);
-    cgd_shader_setmat4(shader, "projection", camera->projection);
     cgd_shader_setmat4(shader, "view", camera->view);
-    cgd_shader_setvec3(shader, "viewPos", camera->position);
+    cgd_shader_setmat4(shader, "projection", camera->projection);
+
+    glActiveTexture(GL_TEXTURE0);
+    cgd_texture_bind(wall_diff);
+    glActiveTexture(GL_TEXTURE1);
+    cgd_texture_bind(box_diff);
+
+    glBindVertexArray(VAO);
+
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+
+    //cgd_mesh_draw(box_mesh, shader);
 
     //printf("cam");
     //glm_vec3_print(camera->position, stdout);
 
-    cgd_shader_setint(shader, "material.diffuse", 0);
-    cgd_shader_setint(shader, "material.specular", 1);
-    cgd_shader_setfloat(shader, "material.shininess", 16.0f);
-
-    cgd_shader_setvec3(shader, "dirLight.direction", dir_light->direction);
-    cgd_shader_setvec3(shader, "dirLight.ambient", dir_light->ambient);
-    cgd_shader_setvec3(shader, "dirLight.diffuse", dir_light->diffuse);
-    cgd_shader_setvec3(shader, "dirLight.specular", dir_light->specular);
-
-    for (int i = 0; i < 4; i++)
-    {
-        char out[32] ;
-
-        sprintf(out, "pointLights[%d].position", i);
-        cgd_shader_setvec3(shader, out, point_lights[i]->position);
-
-        sprintf(out, "pointLights[%d].ambient\n", i);
-        cgd_shader_setvec3(shader, out, point_lights[i]->ambient);
-
-        sprintf(out, "pointLights[%d].diffuse\n", i);
-        cgd_shader_setvec3(shader, out, point_lights[i]->diffuse);
-
-        sprintf(out, "pointLights[%d].specular\n", i);
-        cgd_shader_setvec3(shader, out, point_lights[i]->specular);
-
-        sprintf(out, "pointLights[%d].constant\n", i);
-        cgd_shader_setfloat(shader, out, point_lights[i]->specular[0]);
-
-        sprintf(out, "pointLights[%d].linear\n", i);
-        cgd_shader_setfloat(shader, out, point_lights[i]->linear);
-
-        sprintf(out, "pointLights[%d].quadratic\n", i);
-        cgd_shader_setfloat(shader, out, point_lights[i]->quadratic);
-
-    }
-
-    glActiveTexture(GL_TEXTURE0);
-    cgd_texture_bind(box_diff);
-
-    glActiveTexture(GL_TEXTURE1);
-    cgd_texture_bind(box_spec);
-
-    glBindVertexArray(cube_VAO);
-    for (int i = 0; i < 10; i++)
-    {
-        mat4 model;
-        glm_mat4_copy((mat4)GLM_MAT4_IDENTITY_INIT, model);
-        glm_translate(model, cube_pos[i]);
-        float angle = 20.0f * i;
-        glm_rotate(model, glm_rad(angle), (vec3) {1.0f, 0.3f, 0.5f});
-        cgd_shader_setmat4(shader, "model", model);
-
-        glDrawArrays(GL_TRIANGLES, 0, 36);
-    }
-
-    cgd_shader_start(lamp_shader);
-    cgd_shader_setmat4(lamp_shader, "projection", camera->projection);
-    cgd_shader_setmat4(lamp_shader, "view", camera->view);
-
-    glBindVertexArray(light_VAO);
-    for (unsigned int i = 0; i < 4; i++)
-    {
-        mat4 model;
-        glm_mat4_copy((mat4)GLM_MAT4_IDENTITY_INIT, model);
-        glm_translate(model, plight_pos[i]);
-        glm_scale(model, (vec3){0.2f, 0.2f, 0.2f}); // Make it a smaller cube
-        cgd_shader_setmat4(lamp_shader, "model", model);
-        glDrawArrays(GL_TRIANGLES, 0, 36);
-    }
 }
 
 void handle_input(float delta)
